@@ -1,0 +1,30 @@
+name: Test
+on: [push]
+jobs:
+  Test-Changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - name: Install libraries
+        shell: bash -l {0}
+        run: pip install black isort mypy pytest
+#      - name: Run black
+#        shell: bash -l {0}
+#        run: black . --check
+#      - name: Run isort
+#        shell: bash -l {0}
+#        run: isort . --check --diff
+#      - name: Install mypy types
+#        shell: bash -l {0}
+#        run: yes 2>/dev/null | mypy --install-types . | [ $? > 1 ] && exit 0
+#      - name: Run mypy
+#        shell: bash -l {0}
+#        run: mypy --strict . || true
+      - name: Install
+        shell: bash -l {0}
+        run: pip install .
+      - name: Pytest
+        shell: bash -l {0} || true
+        run: py.test
